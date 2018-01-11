@@ -1,0 +1,41 @@
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+
+    <title>Large Powers of 10</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+        submit = function(){
+            exponent = $('#exponent').val()
+            exponent = {exponent: exponent}
+
+            $.post({
+                url: '/solve',
+                contentType:'application/json',
+                data: JSON.stringify(exponent),
+                success: function(result){
+                    $('.hidden').css('display', 'inline').html('10^' + exponent.exponent + ' is ' + result.answer);
+                }
+            });
+        }
+    </script>
+    <style>
+      .hidden {
+  	  display: none;
+  	}
+    </style>
+</head>
+
+<body>
+    <h1>Let's show some large powers of 10!</h1>
+
+    <p> 10^2 = 100 </p>
+    <p> 10^4 = 10000 </p>
+
+    <h2>Enter an exponent </h2>
+    <input type='text' placeholder='i.e, 10' id='exponent'>
+    <button onclick='submit();'>Exponentiate!</button>
+
+    <p><span class='hidden'></span></p>
+</body>
